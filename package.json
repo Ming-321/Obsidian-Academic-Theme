@@ -1,7 +1,8 @@
 {
-    "name": "sample-obsidian-theme",
+    "name": "obsidian-academic-theme",
     "version": "1.0.0",
-	"scripts": {
-		"version": "node version-bump.mjs && git add manifest.json versions.json"
-	}
+    "description": "Academic paper style theme for Obsidian with dark sidebar and light paper content area",
+    "scripts": {
+        "version": "node version-bump.mjs && git add manifest.json versions.json"
+    }
 }

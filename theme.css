@@ -1,4 +1,27 @@
+/* ================================================
+   Academic Theme for Obsidian
+   学术论文风 Obsidian 主题
+   
+   特性：
+   - 暗色侧边栏 + 亮色纸张正文区
+   - 正文字体：英文 Times New Roman + 中文宋体
+   - 标题字体：黑体（SimHei）
+   - H2-H4 自动编号，H1 居中
+   - 两端对齐 + 首行缩进
+   - 纸张效果（页边距 + 阴影）
+   ================================================ */
+
+
+/* ================================================
+   第 1 部分：通用变量
+   字体、圆角、行距、标题等（不受亮暗模式影响）
+   ================================================ */
+
 body {
+	/* 正文字体：英文 Times New Roman + 中文宋体 */
+	--font-text-theme: "Times New Roman", "SimSun", "STSong", "Noto Serif CJK SC", serif;
+
+	/* 去除所有圆角，保持学术风的方正感 */
 	--radius-s: 0px;
 	--radius-m: 0px;
 	--radius-l: 0px;
@@ -8,12 +31,415 @@ body {
 	--toggle-radius: 0px;
 	--toggle-thumb-radius: 0px;
 	--slider-thumb-radius: 0px;
+
+	/* 行距 */
+	--line-height-normal: 1.75;
+	--line-height-tight: 1.3;
+
+	/* 段落与标题间距 */
+	--p-spacing: 0.3em;
+	--heading-spacing: 0.8em;
+
+	/* 标题字号（H1-H3 递减，H4-H6 与正文同大） */
+	--h1-size: 1.5em;
+	--h2-size: 1.25em;
+	--h3-size: 1.125em;
+	--h4-size: 1em;
+	--h5-size: 1em;
+	--h6-size: 1em;
+
+	/* 标题字重 */
+	--h1-weight: 700;
+	--h2-weight: 700;
+	--h3-weight: 700;
+	--h4-weight: 700;
+	--h5-weight: 700;
+	--h6-weight: 600;
+
+	/* 标题行距 */
+	--h1-line-height: 1.3;
+	--h2-line-height: 1.3;
+	--h3-line-height: 1.3;
+	--h4-line-height: 1.3;
+	--h5-line-height: 1.3;
+	--h6-line-height: 1.3;
+
+	/* 标题字体：黑体 */
+	--h1-font: "SimHei", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+	--h2-font: "SimHei", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+	--h3-font: "SimHei", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+	--h4-font: "SimHei", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+	--h5-font: "SimHei", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+	--h6-font: "SimHei", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+
+	/* 标题颜色：纯黑 */
+	--h1-color: #000000;
+	--h2-color: #000000;
+	--h3-color: #000000;
+	--h4-color: #000000;
+	--h5-color: #000000;
+	--h6-color: #000000;
 }
 
-.workspace-tab-header.is-active::before, .workspace-tab-header.is-active::after {
+
+/* ================================================
+   第 2 部分：暗色模式（主力模式）
+   侧边栏：墨蓝色 | 正文区：暖白纸张
+   ================================================ */
+
+.theme-dark {
+	/* 基础色板 — 墨蓝色系（用于侧边栏等暗色区域） */
+	--color-base-00: #1A2029;
+	--color-base-05: #1C2231;
+	--color-base-10: #1E2630;
+	--color-base-20: #212934;
+	--color-base-25: #2A3544;
+	--color-base-30: #2F3B4A;
+	--color-base-35: #354150;
+	--color-base-40: #4A5568;
+	--color-base-50: #6B7280;
+	--color-base-60: #8A929A;
+	--color-base-70: #A0A8B0;
+	--color-base-100: #C8CDD3;
+
+	/* 强调色 — 学术蓝（偏亮，适合暗色背景） */
+	--accent-h: 216;
+	--accent-s: 50%;
+	--accent-l: 55%;
+
+	/* Ribbon 功能栏 */
+	--ribbon-background: #1A2029;
+	--ribbon-background-collapsed: #1A2029;
+
+	/* 状态栏 */
+	--status-bar-background: #1A2029;
+	--status-bar-border-color: #2F3B4A;
+	--status-bar-text-color: #8A929A;
+
+	/* 标签栏 */
+	--tab-container-background: #1E2630;
+	--tab-background-active: #2A3544;
+	--tab-text-color: #6B7280;
+	--tab-text-color-active: #8A929A;
+	--tab-text-color-focused: #A0A8B0;
+	--tab-text-color-focused-active: #E0E0E0;
+	--tab-text-color-focused-active-current: #FFFFFF;
+	--tab-text-color-focused-highlighted: #C8CDD3;
+	--tab-divider-color: #2F3B4A;
+	--tab-outline-color: transparent;
+
+	/* 分割线 */
+	--divider-color: #2F3B4A;
+
+	/* 标题颜色（正文区是亮色，所以标题保持黑色） */
+	--h1-color: #000000;
+	--h2-color: #000000;
+	--h3-color: #000000;
+	--h4-color: #000000;
+	--h5-color: #000000;
+	--h6-color: #000000;
+}
+
+/* 暗色模式：正文区域覆盖为亮色变量 */
+.theme-dark .mod-root {
+	/* 背景 */
+	--background-primary: #FAFAF8;
+	--background-primary-alt: #F0F0EC;
+	--background-secondary: #E8E6E0;
+	--background-secondary-alt: #E0DED8;
+	--background-modifier-border: #E5E5E0;
+	--background-modifier-border-hover: #D5D5D0;
+	--background-modifier-border-focus: #2B579A;
+	--background-modifier-hover: rgba(0, 0, 0, 0.04);
+	--background-modifier-active-hover: rgba(0, 0, 0, 0.08);
+	--background-modifier-form-field: #FFFFFF;
+
+	/* 文字 */
+	--text-normal: #000000;
+	--text-muted: #4A4A4A;
+	--text-faint: #8A8A8A;
+	--text-accent: #2B579A;
+	--text-accent-hover: #1E3F73;
+
+	/* 交互元素 */
+	--interactive-normal: #F0F0EC;
+	--interactive-hover: #E8E6E0;
+	--interactive-accent: #2B579A;
+	--interactive-accent-hover: #1E3F73;
+
+	/* 正文区强调色 — 深蓝（适合亮色背景） */
+	--accent-h: 216;
+	--accent-s: 56%;
+	--accent-l: 39%;
+
+	/* 其他 */
+	--caret-color: #000000;
+	--text-selection: rgba(43, 87, 154, 0.15);
+	--text-highlight-bg: rgba(255, 208, 0, 0.3);
+}
+
+
+/* ================================================
+   第 3 部分：亮色模式（备选模式）
+   侧边栏：暖灰色 | 正文区：暖白纸张
+   ================================================ */
+
+.theme-light {
+	/* 基础色板 — 暖灰色系 */
+	--color-base-00: #FAFAF8;
+	--color-base-05: #F5F5F2;
+	--color-base-10: #ECEAE4;
+	--color-base-20: #E5E3DD;
+	--color-base-25: #DEDCD6;
+	--color-base-30: #D4D2CC;
+	--color-base-35: #C8C6C0;
+	--color-base-40: #ABABAB;
+	--color-base-50: #8A8A8A;
+	--color-base-60: #6B7280;
+	--color-base-70: #4A4A4A;
+	--color-base-100: #2D2D2D;
+
+	/* 强调色 — 学术蓝 */
+	--accent-h: 216;
+	--accent-s: 56%;
+	--accent-l: 39%;
+
+	/* Ribbon */
+	--ribbon-background: #E5E3DD;
+	--ribbon-background-collapsed: #E5E3DD;
+
+	/* 状态栏 */
+	--status-bar-background: #E5E3DD;
+	--status-bar-border-color: #D4D2CC;
+
+	/* 标签栏 */
+	--tab-container-background: #ECEAE4;
+	--tab-background-active: #FAFAF8;
+	--tab-divider-color: #D4D2CC;
+
+	/* 文字强调色 */
+	--text-accent: #2B579A;
+	--text-accent-hover: #1E3F73;
+
+	/* 分割线 */
+	--divider-color: #D4D2CC;
+}
+
+/* 亮色模式：正文区变量微调 */
+.theme-light .mod-root {
+	--background-primary: #FAFAF8;
+	--background-primary-alt: #F5F5F2;
+	--background-modifier-border: #E5E5E0;
+	--text-accent: #2B579A;
+	--text-accent-hover: #1E3F73;
+}
+
+
+/* ================================================
+   第 4 部分：纸张效果
+   正文区域模拟纸张放在桌面上的效果
+   ================================================ */
+
+/* 桌面背景（纸张下方的灰色区域） */
+.theme-dark .mod-root .workspace-tab-container,
+.theme-dark .mod-root .view-content {
+	background-color: #D8D6D0;
+}
+
+.theme-light .mod-root .workspace-tab-container,
+.theme-light .mod-root .view-content {
+	background-color: #DEDCD6;
+}
+
+/* 视图头部（标题/面包屑）— 暗色模式匹配侧边栏 */
+.theme-dark .mod-root .view-header {
+	background-color: #1E2630;
+	border-bottom: 1px solid #2F3B4A;
+	color: #C8CDD3;
+}
+
+.theme-dark .mod-root .view-header-title-container .view-header-title {
+	color: #8A929A;
+}
+
+.theme-dark .mod-root .view-header .clickable-icon {
+	color: #8A929A;
+}
+
+.theme-dark .mod-root .view-header .clickable-icon:hover {
+	color: #FFFFFF;
+}
+
+/* 视图头部 — 亮色模式 */
+.theme-light .mod-root .view-header {
+	background-color: #ECEAE4;
+	border-bottom: 1px solid #D4D2CC;
+}
+
+/* 阅读模式：纸张样式 */
+.mod-root .markdown-preview-view {
+	background-color: #FAFAF8;
+	padding: 30px 40px 50px 40px;
+	margin: 0 20px;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 编辑模式：纸张样式 */
+.mod-root .markdown-source-view.mod-cm6 {
+	background-color: transparent;
+}
+
+.mod-root .cm-editor {
+	background-color: transparent;
+}
+
+.mod-root .markdown-source-view.mod-cm6 .cm-scroller {
+	background-color: #FAFAF8;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin: 0 20px;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 隐藏内嵌标题（文件名标题） */
+.mod-root .inline-title {
 	display: none;
 }
 
+/* 暗色模式编辑器文字颜色 */
+.theme-dark .mod-root .cm-s-obsidian,
+.theme-dark .mod-root .cm-editor .cm-content,
+.theme-dark .mod-root .cm-editor .cm-line {
+	color: #000000;
+}
+
+/* Markdown 标记符号颜色（如 # ** 等） */
+.theme-dark .mod-root .cm-formatting {
+	color: #8A8A8A;
+}
+
+
+/* ================================================
+   第 5 部分：正文排版
+   两端对齐 + 首行缩进 + 段落间距
+   ================================================ */
+
+/* 段落：两端对齐 + 首行缩进 + 末行左对齐 */
+.markdown-preview-view p {
+	text-align: justify;
+	text-align-last: left;
+	text-indent: 2em;
+}
+
+/* 特殊容器内的段落不缩进 */
+.markdown-preview-view li p,
+.markdown-preview-view blockquote p,
+.markdown-preview-view .callout-content p,
+.markdown-preview-view td p,
+.markdown-preview-view th p {
+	text-indent: 0;
+}
+
+/* 编辑模式（Live Preview）排版 */
+.markdown-source-view.mod-cm6.is-live-preview .cm-line:not(.HyperMD-header):not(.HyperMD-list-line):not(.HyperMD-quote):not(.HyperMD-codeblock):not(.HyperMD-hr):not(.cm-active) {
+	text-align: justify;
+	text-indent: 2em;
+}
+
+/* 标题间距 */
+.markdown-preview-view h1 { margin-top: 1.2em; margin-bottom: 0.6em; }
+.markdown-preview-view h2 { margin-top: 1.0em; margin-bottom: 0.5em; }
+.markdown-preview-view h3 { margin-top: 0.8em; margin-bottom: 0.4em; }
+.markdown-preview-view h4 { margin-top: 0.6em; margin-bottom: 0.3em; }
+.markdown-preview-view h5,
+.markdown-preview-view h6 { margin-top: 0.5em; margin-bottom: 0.2em; }
+
+
+/* ================================================
+   第 6 部分：标题样式与自动编号
+   H1 居中不编号 | H2-H4 自动编号 | 阅读模式生效
+   ================================================ */
+
+/* H1 居中 */
+.markdown-preview-view h1 {
+	text-align: center;
+}
+
+/* 计数器重置 */
+.markdown-preview-view {
+	counter-reset: h2counter h3counter h4counter;
+}
+
+/* H2 — 编号格式 "1. " */
+.markdown-preview-view h2 {
+	counter-increment: h2counter;
+	counter-reset: h3counter h4counter;
+}
+
+.markdown-preview-view h2::before {
+	content: counter(h2counter) ". ";
+	font-weight: 700;
+}
+
+/* H3 — 编号格式 "1.1 " */
+.markdown-preview-view h3 {
+	counter-increment: h3counter;
+	counter-reset: h4counter;
+}
+
+.markdown-preview-view h3::before {
+	content: counter(h2counter) "." counter(h3counter) " ";
+	font-weight: 700;
+}
+
+/* H4 — 编号格式 "1.1.1 " */
+.markdown-preview-view h4 {
+	counter-increment: h4counter;
+}
+
+.markdown-preview-view h4::before {
+	content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) " ";
+	font-weight: 700;
+}
+
+
+/* ================================================
+   第 7 部分：表格与图像居中
+   ================================================ */
+
+/* 表格居中 */
+.markdown-preview-view table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* 图像居中 */
+.markdown-preview-view img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100%;
+}
+
+/* 内嵌图片容器居中 */
+.markdown-preview-view .image-embed {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+/* ================================================
+   第 8 部分：界面元素微调
+   ================================================ */
+
+/* 活动标签去除默认装饰 */
+.workspace-tab-header.is-active::before,
+.workspace-tab-header.is-active::after {
+	display: none;
+}
+
+/* SVG 图标方角化 */
 svg * {
 	stroke-linecap: square;
 	stroke-linejoin: miter;
@@ -21,14 +447,29 @@ svg * {
 	ry: 0;
 }
 
-.menu {
-	padding: var(--size-2-1);
+/* 菜单样式 */
+.menu { padding: var(--size-2-1); }
+.menu-item { padding: var(--size-4-1) var(--size-4-2); }
+.menu-separator { margin: var(--size-2-1) calc(var(--size-2-1) * -1); }
+
+/* 侧边栏分隔线 */
+.theme-dark .nav-files-container { border-color: #2F3B4A; }
+
+/* 分割线手柄 */
+.theme-dark .workspace-leaf-resize-handle { background-color: #2F3B4A; }
+.theme-light .workspace-leaf-resize-handle { background-color: #D4D2CC; }
+
+/* 侧边栏滚动条 */
+.theme-dark .mod-left-split ::-webkit-scrollbar-thumb,
+.theme-dark .mod-right-split ::-webkit-scrollbar-thumb {
+	background-color: #354150;
 }
 
-.menu-item {
-	padding: var(--size-4-1) var(--size-4-2);
+.theme-dark .mod-left-split ::-webkit-scrollbar-track,
+.theme-dark .mod-right-split ::-webkit-scrollbar-track {
+	background-color: transparent;
 }
 
-.menu-separator {
-	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
-}
+/* 正文区链接颜色 */
+.mod-root a { color: var(--text-accent); }
+.mod-root a:hover { color: var(--text-accent-hover); }
