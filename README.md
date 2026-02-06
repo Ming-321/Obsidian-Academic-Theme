@@ -2,6 +2,8 @@
 
 一款学术论文风格的 Obsidian 主题，模拟 LaTeX 排版的阅读体验。
 
+![Academic Theme Preview](screenshot.png)
+
 ## 特性
 
 - **分区配色** — 暗色侧边栏（墨蓝色）+ 亮色正文区，深色书房中阅读论文的感觉
